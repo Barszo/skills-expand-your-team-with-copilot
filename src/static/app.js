@@ -472,6 +472,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Helper function to escape HTML for use in attributes
+  function escapeHtml(text) {
+    const div = document.createElement("div");
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
   // Function to render a single activity card
   function renderActivityCard(name, details) {
     const activityCard = document.createElement("div");
@@ -523,13 +530,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const shareButtons = `
       <div class="share-buttons">
         <span class="share-label">Share:</span>
-        <button class="share-button twitter-share" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share on Twitter/X">
+        <button class="share-button twitter-share" data-activity="${escapeHtml(
+          name
+        )}" data-description="${escapeHtml(
+      details.description
+    )}" data-schedule="${escapeHtml(formattedSchedule)}" title="Share on Twitter/X">
           <span class="share-icon">𝕏</span>
         </button>
-        <button class="share-button facebook-share" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share on Facebook">
+        <button class="share-button facebook-share" data-activity="${escapeHtml(
+          name
+        )}" data-description="${escapeHtml(
+      details.description
+    )}" data-schedule="${escapeHtml(formattedSchedule)}" title="Share on Facebook">
           <span class="share-icon">f</span>
         </button>
-        <button class="share-button linkedin-share" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share on LinkedIn">
+        <button class="share-button linkedin-share" data-activity="${escapeHtml(
+          name
+        )}" data-description="${escapeHtml(
+      details.description
+    )}" data-schedule="${escapeHtml(formattedSchedule)}" title="Share on LinkedIn">
           <span class="share-icon">in</span>
         </button>
       </div>
@@ -628,8 +647,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (linkedinShareBtn) {
       linkedinShareBtn.addEventListener("click", (e) => {
         const activityName = e.currentTarget.dataset.activity;
-        const description = e.currentTarget.dataset.description;
-        shareOnLinkedIn(activityName, description);
+        shareOnLinkedIn(activityName);
       });
     }
 
@@ -656,7 +674,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.open(facebookUrl, "_blank", "width=550,height=420");
   }
 
-  function shareOnLinkedIn(activityName, description) {
+  function shareOnLinkedIn(activityName) {
     const url = window.location.href;
     const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
       url
