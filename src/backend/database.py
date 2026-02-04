@@ -166,13 +166,13 @@ initial_activities = {
     },
     "Manga Maniacs": {
         "description": "Dive into epic adventures, emotional journeys, and unforgettable characters from the world of Japanese manga! Whether you're into action-packed shonen battles, heartwarming slice-of-life stories, or mind-bending mysteries, join fellow manga enthusiasts to discuss your favorites, discover hidden gems, and share fan art. From classics like Dragon Ball to modern hits like My Hero Academia - all manga lovers welcome!",
-        "schedule": "Tuesdays, 7:00 PM - 8:30 PM",
+        "schedule": "Tuesdays, 5:00 PM - 6:30 PM",
         "schedule_details": {
             "days": ["Tuesday"],
-            "start_time": "19:00",
-            "end_time": "20:30"
+            "start_time": "17:00",
+            "end_time": "18:30"
         },
-        "max_participants": 15,
+        "max_participants": 25,
         "participants": []
     }
 }
