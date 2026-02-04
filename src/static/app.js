@@ -645,9 +645,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (linkedinShareBtn) {
-      linkedinShareBtn.addEventListener("click", (e) => {
-        const activityName = e.currentTarget.dataset.activity;
-        shareOnLinkedIn(activityName);
+      linkedinShareBtn.addEventListener("click", () => {
+        shareOnLinkedIn();
       });
     }
 
@@ -674,7 +673,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.open(facebookUrl, "_blank", "width=550,height=420");
   }
 
-  function shareOnLinkedIn(activityName) {
+  function shareOnLinkedIn() {
     const url = window.location.href;
     const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
       url
