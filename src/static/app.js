@@ -519,6 +519,22 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
     `;
 
+    // Create social sharing buttons
+    const shareButtons = `
+      <div class="share-buttons">
+        <span class="share-label">Share:</span>
+        <button class="share-button twitter-share" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share on Twitter/X">
+          <span class="share-icon">𝕏</span>
+        </button>
+        <button class="share-button facebook-share" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share on Facebook">
+          <span class="share-icon">f</span>
+        </button>
+        <button class="share-button linkedin-share" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share on LinkedIn">
+          <span class="share-icon">in</span>
+        </button>
+      </div>
+    `;
+
     activityCard.innerHTML = `
       ${tagHtml}
       <h4>${name}</h4>
@@ -528,6 +544,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <span class="tooltip-text">Regular meetings at this time throughout the semester</span>
       </p>
       ${capacityIndicator}
+      ${shareButtons}
       <div class="participants-list">
         <h5>Current Participants:</h5>
         <ul>
@@ -587,7 +604,64 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
+    // Add click handlers for share buttons
+    const twitterShareBtn = activityCard.querySelector(".twitter-share");
+    const facebookShareBtn = activityCard.querySelector(".facebook-share");
+    const linkedinShareBtn = activityCard.querySelector(".linkedin-share");
+
+    if (twitterShareBtn) {
+      twitterShareBtn.addEventListener("click", (e) => {
+        const activityName = e.currentTarget.dataset.activity;
+        const description = e.currentTarget.dataset.description;
+        const schedule = e.currentTarget.dataset.schedule;
+        shareOnTwitter(activityName, description, schedule);
+      });
+    }
+
+    if (facebookShareBtn) {
+      facebookShareBtn.addEventListener("click", (e) => {
+        const activityName = e.currentTarget.dataset.activity;
+        shareOnFacebook(activityName);
+      });
+    }
+
+    if (linkedinShareBtn) {
+      linkedinShareBtn.addEventListener("click", (e) => {
+        const activityName = e.currentTarget.dataset.activity;
+        const description = e.currentTarget.dataset.description;
+        shareOnLinkedIn(activityName, description);
+      });
+    }
+
     activitiesList.appendChild(activityCard);
+  }
+
+  // Social sharing functions
+  function shareOnTwitter(activityName, description, schedule) {
+    const text = `Check out this activity at Mergington High School: ${activityName}!\n${description}\nSchedule: ${schedule}`;
+    const url = window.location.href;
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+      text
+    )}&url=${encodeURIComponent(url)}`;
+    window.open(twitterUrl, "_blank", "width=550,height=420");
+  }
+
+  function shareOnFacebook(activityName) {
+    const url = window.location.href;
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+      url
+    )}&quote=${encodeURIComponent(
+      `Check out ${activityName} at Mergington High School!`
+    )}`;
+    window.open(facebookUrl, "_blank", "width=550,height=420");
+  }
+
+  function shareOnLinkedIn(activityName, description) {
+    const url = window.location.href;
+    const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+      url
+    )}`;
+    window.open(linkedinUrl, "_blank", "width=550,height=420");
   }
 
   // Event listeners for search and filter
